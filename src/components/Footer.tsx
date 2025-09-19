@@ -25,8 +25,8 @@ const Footer: React.FC = () => {
             <div className="space-y-2 text-sm text-gray-400">
               <p>Bridgeland High School</p>
               <p>Main Office</p>
-              <p>Email: office@bridgelandhs.edu</p>
-              <p>Phone: (XXX) XXX-XXXX</p>
+              <p>Email: bridgelandhs@cfisd.net</p>
+              <p>Phone: (832) 349-7600</p>
             </div>
           </div>
           
