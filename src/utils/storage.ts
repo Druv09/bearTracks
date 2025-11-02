@@ -61,6 +61,15 @@ export const initializeDemoData = (): void => {
         createdAt: new Date().toISOString(),
       },
       {
+        id: 'admin-2',
+        email: 'druvanbharath@gmail.com',
+        password: 'Dushy@2009',
+        name: 'Druvan Bharath',
+        gradeLevel: 'Staff',
+        role: 'admin',
+        createdAt: new Date().toISOString(),
+      },
+      {
         id: 'demo-student',
         email: 'student@bridgelandhs.edu',
         password: 'student123',
