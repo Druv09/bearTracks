@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import { getItems, saveItems, getClaims, saveClaims, getUsers } from '../utils/storage';
+import { getItems, saveItems, getClaims, saveClaims, getUsers, saveUsers } from '../utils/storage';
 import { FoundItem, ClaimRequest, User } from '../types';
 import { Eye, Check, X, Trash2, Users, Package, MessageCircle, Shield } from 'lucide-react';
 
@@ -63,6 +63,14 @@ const Admin: React.FC = () => {
     );
     setClaims(updatedClaims);
     saveClaims(updatedClaims);
+  };
+
+  const handleDeleteUser = (userId: string) => {
+    if (window.confirm('Are you sure you want to delete this user? This action cannot be undone.')) {
+      const updatedUsers = users.filter(user => user.id !== userId);
+      setUsers(updatedUsers);
+      saveUsers(updatedUsers);
+    }
   };
 
   if (!user || user.role !== 'admin') {
@@ -323,6 +331,7 @@ const Admin: React.FC = () => {
                           <th className="text-left py-3 px-4 font-medium text-gray-900">Grade Level</th>
                           <th className="text-left py-3 px-4 font-medium text-gray-900">Role</th>
                           <th className="text-left py-3 px-4 font-medium text-gray-900">Joined</th>
+                          <th className="text-left py-3 px-4 font-medium text-gray-900">Actions</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -342,6 +351,15 @@ const Admin: React.FC = () => {
                             </td>
                             <td className="py-4 px-4 text-gray-900">
                               {new Date(user.createdAt).toLocaleDateString()}
+                            </td>
+                            <td className="py-4 px-4">
+                              <button
+                                onClick={() => handleDeleteUser(user.id)}
+                                className="text-red-600 hover:text-red-500"
+                                title="Delete user"
+                              >
+                                <Trash2 size={16} />
+                              </button>
                             </td>
                           </tr>
                         ))}
