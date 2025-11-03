@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { Calendar, MapPin, Tag, User, ArrowLeft, MessageCircle, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
-import { getItems, getUsers, getClaims, saveClaims } from '../utils/storage';
-import { FoundItem, ClaimRequest } from '../types';
+import { getItems, getUsers, getClaims, saveClaims, createNotification } from '../utils/storage';
+import { FoundItem, ClaimRequest, Notification } from '../types';
 import { v4 as uuidv4 } from 'uuid';
 
 const ItemDetails: React.FC = () => {
@@ -81,6 +81,32 @@ const ItemDetails: React.FC = () => {
 
       const updatedClaims = [...claims, newClaim];
       saveClaims(updatedClaims);
+
+      const itemSubmitterNotification: Notification = {
+        id: uuidv4(),
+        userId: item.submittedBy,
+        type: 'item_claimed',
+        title: 'New Claim Submitted',
+        message: `${user.name} has submitted a claim for "${item.title}". Check the admin panel to review.`,
+        itemId: item.id,
+        claimId: newClaim.id,
+        read: false,
+        createdAt: new Date().toISOString()
+      };
+      createNotification(itemSubmitterNotification);
+
+      const claimantNotification: Notification = {
+        id: uuidv4(),
+        userId: user.id,
+        type: 'claim_submitted',
+        title: 'Claim Submitted',
+        message: `Your claim for "${item.title}" has been submitted successfully. You will be notified when an admin reviews it.`,
+        itemId: item.id,
+        claimId: newClaim.id,
+        read: false,
+        createdAt: new Date().toISOString()
+      };
+      createNotification(claimantNotification);
 
       alert('Claim request submitted successfully! You will be contacted if your claim is approved.');
       setShowClaimForm(false);

@@ -11,6 +11,7 @@ import SubmitItem from './pages/SubmitItem';
 import Browse from './pages/Browse';
 import ItemDetails from './pages/ItemDetails';
 import Admin from './pages/Admin';
+import Notifications from './pages/Notifications';
 
 function App() {
   useEffect(() => {
@@ -30,6 +31,7 @@ function App() {
               <Route path="/item/:id" element={<ItemDetails />} />
               <Route path="/submit" element={<SubmitItem />} />
               <Route path="/admin" element={<Admin />} />
+              <Route path="/notifications" element={<Notifications />} />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </main>

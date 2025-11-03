@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Menu, X, User, LogOut, Plus, Search, Shield } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
+import NotificationBell from './NotificationBell';
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -55,6 +56,7 @@ const Header: React.FC = () => {
                     <span>Admin</span>
                   </Link>
                 )}
+                <NotificationBell />
                 <div className="flex items-center space-x-4">
                   <div className="flex items-center space-x-2">
                     <User size={16} />

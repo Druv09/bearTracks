@@ -30,5 +30,19 @@ export interface ClaimRequest {
   message: string;
   contactInfo: string;
   status: 'pending' | 'approved' | 'denied';
+  pickupLocation?: string;
+  adminNote?: string;
+  createdAt: string;
+}
+
+export interface Notification {
+  id: string;
+  userId: string;
+  type: 'claim_submitted' | 'claim_approved' | 'claim_denied' | 'item_claimed';
+  title: string;
+  message: string;
+  itemId?: string;
+  claimId?: string;
+  read: boolean;
   createdAt: string;
 }

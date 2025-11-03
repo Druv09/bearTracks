@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import { getItems, saveItems, getClaims, saveClaims, getUsers, saveUsers } from '../utils/storage';
-import { FoundItem, ClaimRequest, User } from '../types';
-import { Eye, Check, X, Trash2, Users, Package, MessageCircle, Shield } from 'lucide-react';
+import { getItems, saveItems, getClaims, saveClaims, getUsers, saveUsers, createNotification } from '../utils/storage';
+import { FoundItem, ClaimRequest, User, Notification } from '../types';
+import { Eye, Check, X, Trash2, Users, Package, MessageCircle, Shield, MapPin, FileText } from 'lucide-react';
+import { v4 as uuidv4 } from 'uuid';
 
 const Admin: React.FC = () => {
   const { user } = useAuth();
@@ -10,6 +11,9 @@ const Admin: React.FC = () => {
   const [items, setItems] = useState<FoundItem[]>([]);
   const [claims, setClaims] = useState<ClaimRequest[]>([]);
   const [users, setUsers] = useState<User[]>([]);
+  const [approvingClaimId, setApprovingClaimId] = useState<string | null>(null);
+  const [pickupLocation, setPickupLocation] = useState('');
+  const [adminNote, setAdminNote] = useState('');
 
   useEffect(() => {
     setItems(getItems());
@@ -42,27 +46,65 @@ const Admin: React.FC = () => {
     const claim = claims.find(c => c.id === claimId);
     if (!claim) return;
 
-    // Update claim status
     const updatedClaims = claims.map(c =>
-      c.id === claimId ? { ...c, status: 'approved' as const } : c
+      c.id === claimId ? {
+        ...c,
+        status: 'approved' as const,
+        pickupLocation: pickupLocation || 'Main Office',
+        adminNote: adminNote || 'Your item is ready for pickup during school hours.'
+      } : c
     );
     setClaims(updatedClaims);
     saveClaims(updatedClaims);
 
-    // Update item status
     const updatedItems = items.map(item =>
       item.id === claim.itemId ? { ...item, status: 'claimed' as const, claimedBy: claim.claimantId } : item
     );
     setItems(updatedItems);
     saveItems(updatedItems);
+
+    const item = items.find(i => i.id === claim.itemId);
+    const approvalNotification: Notification = {
+      id: uuidv4(),
+      userId: claim.claimantId,
+      type: 'claim_approved',
+      title: 'Claim Approved',
+      message: `Your claim for "${item?.title}" has been approved! Pickup location: ${pickupLocation || 'Main Office'}. ${adminNote || 'Your item is ready for pickup during school hours.'}`,
+      itemId: claim.itemId,
+      claimId: claim.id,
+      read: false,
+      createdAt: new Date().toISOString()
+    };
+    createNotification(approvalNotification);
+
+    setApprovingClaimId(null);
+    setPickupLocation('');
+    setAdminNote('');
   };
 
   const handleDenyClaim = (claimId: string) => {
-    const updatedClaims = claims.map(claim =>
-      claim.id === claimId ? { ...claim, status: 'denied' as const } : claim
+    const claim = claims.find(c => c.id === claimId);
+    if (!claim) return;
+
+    const updatedClaims = claims.map(c =>
+      c.id === claimId ? { ...c, status: 'denied' as const } : c
     );
     setClaims(updatedClaims);
     saveClaims(updatedClaims);
+
+    const item = items.find(i => i.id === claim.itemId);
+    const denialNotification: Notification = {
+      id: uuidv4(),
+      userId: claim.claimantId,
+      type: 'claim_denied',
+      title: 'Claim Denied',
+      message: `Your claim for "${item?.title}" has been denied. If you believe this is an error, please contact the main office.`,
+      itemId: claim.itemId,
+      claimId: claim.id,
+      read: false,
+      createdAt: new Date().toISOString()
+    };
+    createNotification(denialNotification);
   };
 
   const handleDeleteUser = (userId: string) => {
@@ -290,23 +332,97 @@ const Admin: React.FC = () => {
                             <p className="text-gray-700">{claim.contactInfo}</p>
                           </div>
 
-                          {claim.status === 'pending' && (
-                            <div className="flex space-x-4">
-                              <button
-                                onClick={() => handleApproveClaim(claim.id)}
-                                className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors"
-                              >
-                                <Check size={16} />
-                                <span>Approve</span>
-                              </button>
-                              <button
-                                onClick={() => handleDenyClaim(claim.id)}
-                                className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors"
-                              >
-                                <X size={16} />
-                                <span>Deny</span>
-                              </button>
+                          {claim.status === 'approved' && (
+                            <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                              <h5 className="font-medium text-gray-900 mb-2">Approval Details:</h5>
+                              <div className="space-y-2 text-sm">
+                                <div className="flex items-center text-gray-700">
+                                  <MapPin size={14} className="mr-2" />
+                                  <span><strong>Pickup Location:</strong> {claim.pickupLocation || 'Not specified'}</span>
+                                </div>
+                                {claim.adminNote && (
+                                  <div className="flex items-start text-gray-700">
+                                    <FileText size={14} className="mr-2 mt-1" />
+                                    <span><strong>Admin Note:</strong> {claim.adminNote}</span>
+                                  </div>
+                                )}
+                              </div>
                             </div>
+                          )}
+
+                          {claim.status === 'pending' && (
+                            <>
+                              {approvingClaimId === claim.id ? (
+                                <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 space-y-4">
+                                  <h5 className="font-medium text-gray-900">Approve Claim</h5>
+
+                                  <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                                      <MapPin size={14} className="inline mr-1" />
+                                      Pickup Location *
+                                    </label>
+                                    <input
+                                      type="text"
+                                      value={pickupLocation}
+                                      onChange={(e) => setPickupLocation(e.target.value)}
+                                      placeholder="e.g., Main Office, Room 101"
+                                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                                    />
+                                  </div>
+
+                                  <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                                      <FileText size={14} className="inline mr-1" />
+                                      Admin Note (Optional)
+                                    </label>
+                                    <textarea
+                                      value={adminNote}
+                                      onChange={(e) => setAdminNote(e.target.value)}
+                                      placeholder="Additional instructions for pickup..."
+                                      rows={3}
+                                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                                    />
+                                  </div>
+
+                                  <div className="flex space-x-4">
+                                    <button
+                                      onClick={() => handleApproveClaim(claim.id)}
+                                      className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors"
+                                    >
+                                      <Check size={16} />
+                                      <span>Confirm Approval</span>
+                                    </button>
+                                    <button
+                                      onClick={() => {
+                                        setApprovingClaimId(null);
+                                        setPickupLocation('');
+                                        setAdminNote('');
+                                      }}
+                                      className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition-colors"
+                                    >
+                                      Cancel
+                                    </button>
+                                  </div>
+                                </div>
+                              ) : (
+                                <div className="flex space-x-4">
+                                  <button
+                                    onClick={() => setApprovingClaimId(claim.id)}
+                                    className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors"
+                                  >
+                                    <Check size={16} />
+                                    <span>Approve</span>
+                                  </button>
+                                  <button
+                                    onClick={() => handleDenyClaim(claim.id)}
+                                    className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors"
+                                  >
+                                    <X size={16} />
+                                    <span>Deny</span>
+                                  </button>
+                                </div>
+                              )}
+                            </>
                           )}
                         </div>
                       );

@@ -1,4 +1,4 @@
-import { User, FoundItem, ClaimRequest } from '../types';
+import { User, FoundItem, ClaimRequest, Notification } from '../types';
 
 // User management
 export const getUsers = (): User[] => {
@@ -44,6 +44,44 @@ export const getClaims = (): ClaimRequest[] => {
 
 export const saveClaims = (claims: ClaimRequest[]): void => {
   localStorage.setItem('bearTracks_claims', JSON.stringify(claims));
+};
+
+// Notifications management
+export const getNotifications = (): Notification[] => {
+  const notifications = localStorage.getItem('bearTracks_notifications');
+  return notifications ? JSON.parse(notifications) : [];
+};
+
+export const saveNotifications = (notifications: Notification[]): void => {
+  localStorage.setItem('bearTracks_notifications', JSON.stringify(notifications));
+};
+
+export const getUserNotifications = (userId: string): Notification[] => {
+  const notifications = getNotifications();
+  return notifications.filter(n => n.userId === userId).sort((a, b) =>
+    new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+  );
+};
+
+export const markNotificationAsRead = (notificationId: string): void => {
+  const notifications = getNotifications();
+  const updated = notifications.map(n =>
+    n.id === notificationId ? { ...n, read: true } : n
+  );
+  saveNotifications(updated);
+};
+
+export const markAllNotificationsAsRead = (userId: string): void => {
+  const notifications = getNotifications();
+  const updated = notifications.map(n =>
+    n.userId === userId ? { ...n, read: true } : n
+  );
+  saveNotifications(updated);
+};
+
+export const createNotification = (notification: Notification): void => {
+  const notifications = getNotifications();
+  saveNotifications([...notifications, notification]);
 };
 
 // Initialize with some demo data
