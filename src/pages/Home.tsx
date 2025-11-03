@@ -43,7 +43,7 @@ const Home = () => {
   return (
     <div className="bg-white">
       {/* Hero */}
-      <div className="bg-slate-900 relative overflow-hidden">
+      <div className="bg-blue-900 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-orange-500/10 to-transparent"></div>
         <div className="max-w-6xl mx-auto px-6 py-16 md:py-24 relative">
           <div className="flex items-center gap-3 mb-6">
@@ -75,20 +75,20 @@ const Home = () => {
       </div>
 
       {/* Quick Stats */}
-      <div className="border-b border-slate-200">
+      <div className="border-b border-blue-200">
         <div className="max-w-6xl mx-auto px-6 py-8">
           <div className="grid grid-cols-3 gap-8">
             <div>
-              <div className="text-3xl font-bold text-slate-900 mb-1">{availableCount}</div>
-              <div className="text-sm text-slate-600">Available to Claim</div>
+              <div className="text-3xl font-bold text-blue-900 mb-1">{availableCount}</div>
+              <div className="text-sm text-blue-700">Available to Claim</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-slate-900 mb-1">{pendingClaims}</div>
-              <div className="text-sm text-slate-600">Pending Claims</div>
+              <div className="text-3xl font-bold text-blue-900 mb-1">{pendingClaims}</div>
+              <div className="text-sm text-blue-700">Pending Claims</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-slate-900 mb-1">{returnedCount}</div>
-              <div className="text-sm text-slate-600">Successfully Returned</div>
+              <div className="text-3xl font-bold text-blue-900 mb-1">{returnedCount}</div>
+              <div className="text-sm text-blue-700">Successfully Returned</div>
             </div>
           </div>
         </div>
@@ -98,8 +98,8 @@ const Home = () => {
       <div className="max-w-6xl mx-auto px-6 py-12">
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h2 className="text-2xl font-bold text-slate-900 mb-1">Recently Found</h2>
-            <p className="text-slate-600">Latest items turned in to the office</p>
+            <h2 className="text-2xl font-bold text-blue-900 mb-1">Recently Found</h2>
+            <p className="text-blue-700">Latest items turned in to the office</p>
           </div>
           <button className="text-orange-600 hover:text-orange-700 font-medium flex items-center gap-1">
             View all
@@ -109,8 +109,8 @@ const Home = () => {
 
         <div className="grid md:grid-cols-3 gap-6">
           {mockItems.map((item) => (
-            <div key={item.id} className="border border-slate-200 rounded-lg overflow-hidden hover:shadow-lg transition group cursor-pointer">
-              <div className="aspect-video bg-slate-100 overflow-hidden">
+            <div key={item.id} className="border border-blue-200 rounded-lg overflow-hidden hover:shadow-lg transition group cursor-pointer">
+              <div className="aspect-video bg-blue-50 overflow-hidden">
                 <img 
                   src={item.photos[0]} 
                   alt={item.title}
@@ -118,9 +118,9 @@ const Home = () => {
                 />
               </div>
               <div className="p-4">
-                <h3 className="font-semibold text-slate-900 mb-1">{item.title}</h3>
-                <p className="text-sm text-slate-600 mb-3 line-clamp-2">{item.description}</p>
-                <div className="flex items-center justify-between text-xs text-slate-500">
+                <h3 className="font-semibold text-blue-900 mb-1">{item.title}</h3>
+                <p className="text-sm text-blue-700 mb-3 line-clamp-2">{item.description}</p>
+                <div className="flex items-center justify-between text-xs text-blue-600">
                   <div className="flex items-center gap-1">
                     <MapPin size={12} />
                     {item.location}
@@ -137,17 +137,17 @@ const Home = () => {
       </div>
 
       {/* How it Works */}
-      <div className="bg-slate-50 border-y border-slate-200">
+      <div className="bg-blue-50 border-y border-blue-200">
         <div className="max-w-6xl mx-auto px-6 py-12">
-          <h2 className="text-2xl font-bold text-slate-900 mb-8">How it works</h2>
+          <h2 className="text-2xl font-bold text-blue-900 mb-8">How it works</h2>
           
           <div className="grid md:grid-cols-3 gap-8">
             <div>
               <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center mb-4">
                 <Plus size={20} className="text-orange-600" />
               </div>
-              <h3 className="font-semibold text-slate-900 mb-2">Find something? Turn it in</h3>
-              <p className="text-sm text-slate-600">
+              <h3 className="font-semibold text-blue-900 mb-2">Find something? Turn it in</h3>
+              <p className="text-sm text-blue-700">
                 Take a quick photo and submit details. It takes less than a minute and helps a fellow Bear out.
               </p>
             </div>
@@ -156,8 +156,8 @@ const Home = () => {
               <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center mb-4">
                 <Search size={20} className="text-orange-600" />
               </div>
-              <h3 className="font-semibold text-slate-900 mb-2">Lost something? Search here</h3>
-              <p className="text-sm text-slate-600">
+              <h3 className="font-semibold text-blue-900 mb-2">Lost something? Search here</h3>
+              <p className="text-sm text-blue-700">
                 Browse by category, date, or location. Filter results to find exactly what you're looking for.
               </p>
             </div>
@@ -166,8 +166,8 @@ const Home = () => {
               <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center mb-4">
                 <Users size={20} className="text-orange-600" />
               </div>
-              <h3 className="font-semibold text-slate-900 mb-2">Claim and pick up</h3>
-              <p className="text-sm text-slate-600">
+              <h3 className="font-semibold text-blue-900 mb-2">Claim and pick up</h3>
+              <p className="text-sm text-blue-700">
                 Submit a claim request online, then swing by the main office during school hours to grab your stuff.
               </p>
             </div>
@@ -177,11 +177,11 @@ const Home = () => {
 
       {/* CTA Footer */}
       <div className="max-w-6xl mx-auto px-6 py-12">
-        <div className="bg-slate-900 rounded-2xl p-8 md:p-12 text-center">
+        <div className="bg-blue-900 rounded-2xl p-8 md:p-12 text-center">
           <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
             Need help finding something?
           </h2>
-          <p className="text-slate-300 mb-6 max-w-2xl mx-auto">
+          <p className="text-blue-200 mb-6 max-w-2xl mx-auto">
             Stop by the main office during school hours or send us an email. We're here to help reunite you with your belongings.
           </p>
           <div className="flex flex-wrap gap-3 justify-center">
