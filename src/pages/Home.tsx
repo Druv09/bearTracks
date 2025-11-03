@@ -47,8 +47,8 @@ const Home = () => {
         <div className="absolute inset-0 bg-gradient-to-br from-orange-500/10 to-transparent"></div>
         <div className="max-w-6xl mx-auto px-6 py-16 md:py-24 relative">
           <div className="flex items-center gap-3 mb-6">
-            <div className="w-12 h-12 bg-orange-500 rounded-lg flex items-center justify-center text-2xl">
-              🐻
+            <div className="w-12 h-12 rounded-lg overflow-hidden">
+              <img src="https://i.imgur.com/8ZQY9Xm.png" alt="Bear Tracks Logo" className="w-full h-full object-cover" />
             </div>
             <span className="text-orange-500 font-semibold text-lg">Bear Tracks</span>
           </div>
