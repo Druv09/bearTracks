@@ -5,7 +5,7 @@ import { Search, Plus, Users, MapPin, Clock, ArrowRight } from 'lucide-react';
 const mockItems = [
   {
     id: '1',
-    title: 'Blue Backpack',
+    title: 'Black Backpack',
     description: 'Navy blue Jansport backpack with water bottle pocket',
     dateFound: '2024-10-28',
     category: 'Bags',
