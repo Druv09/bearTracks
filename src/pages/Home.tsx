@@ -50,7 +50,7 @@ const Home = () => {
         <div className="max-w-6xl mx-auto px-6 py-16 md:py-24 relative">
           <div className="flex items-center gap-3 mb-6">
             <div className="w-32 h-32">
-              <img src="/Copy of FBLA Logo Design.png" alt="Bear Tracks Logo" className="w-full h-full object-contain" />
+              <img src="/finallogo.png" alt="Bear Tracks Logo" className="w-full h-full object-contain" />
             </div>
           </div>
           
