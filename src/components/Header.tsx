@@ -25,8 +25,8 @@ const Header: React.FC = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center">
-              <span className="text-white font-bold text-lg">🐻</span>
+            <div className="w-10 h-10 rounded-full overflow-hidden">
+              <img src="/Copy of FBLA Logo Design.png" alt="Bear Tracks Logo" className="w-full h-full object-cover" />
             </div>
             <div>
               <h1 className="text-xl font-bold">Bear Tracks</h1>

@@ -7,8 +7,8 @@ const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
             <div className="flex items-center space-x-3 mb-4">
-              <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center">
-                <span className="text-white font-bold">🐻</span>
+              <div className="w-8 h-8 rounded-full overflow-hidden">
+                <img src="/Copy of FBLA Logo Design.png" alt="Bear Tracks Logo" className="w-full h-full object-cover" />
               </div>
               <div>
                 <h3 className="text-lg font-bold">Bear Tracks</h3>
