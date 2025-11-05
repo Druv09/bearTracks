@@ -26,7 +26,7 @@ const Header: React.FC = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3">
             <div className="w-10 h-10 rounded-full overflow-hidden">
-              <img src="/Copy of FBLA Logo Design.png" alt="Bear Tracks Logo" className="w-full h-full object-cover" />
+              <img src="/finallogo.png" alt="Bear Tracks Logo" className="w-full h-full object-cover" />
             </div>
             <div>
               <h1 className="text-xl font-bold">Bear Tracks</h1>

@@ -13,26 +13,6 @@ const mockItems = [
     location: 'Gym',
     photos: ['https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400'],
     status: 'available'
-  },
-  {
-    id: '2',
-    title: 'iPhone 13',
-    description: 'Black iPhone with cracked screen protector',
-    dateFound: '2024-10-27',
-    category: 'Electronics',
-    location: 'Cafeteria',
-    photos: ['https://images.unsplash.com/photo-1592286927505-b0e4ca7d6d4e?w=400'],
-    status: 'available'
-  },
-  {
-    id: '3',
-    title: 'Calculator',
-    description: 'TI-84 Plus graphing calculator',
-    dateFound: '2024-10-26',
-    category: 'School Supplies',
-    location: 'Math Wing',
-    photos: ['https://images.unsplash.com/photo-1611226298229-d06d84d6f3e7?w=400'],
-    status: 'available'
   }
 ];
 
@@ -47,22 +27,22 @@ const Home = () => {
       {/* Hero */}
       <div className="bg-blue-900 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-orange-500/10 to-transparent"></div>
-        <div className="max-w-6xl mx-auto px-6 py-16 md:py-24 relative">
-          <div className="flex items-center gap-3 mb-6">
+        <div className="max-w-6xl mx-auto px-6 py-16 md:py-24 relative text-center">
+          <div className="flex justify-center mb-6">
             <div className="w-32 h-32">
               <img src="/finallogo.png" alt="Bear Tracks Logo" className="w-full h-full object-contain" />
             </div>
           </div>
-          
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 max-w-2xl leading-tight">
-            Lost something? We've probably found it.
+
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 leading-tight">
+            Welcome to Bear Tracks
           </h1>
-          
-          <p className="text-lg text-slate-300 mb-8 max-w-xl">
+
+          <p className="text-lg text-slate-300 mb-8 max-w-xl mx-auto">
             Bridgeland High's lost and found database. Browse items, file claims, and help reunite students with their stuff.
           </p>
-          
-          <div className="flex flex-wrap gap-3">
+
+          <div className="flex flex-wrap gap-3 justify-center">
             <button
               onClick={() => navigate('/browse')}
               className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-lg font-medium transition flex items-center gap-2"
