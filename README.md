@@ -61,3 +61,14 @@ This project is for educational purposes as part of FBLA competitions.
 ## Website Link
 
 https://beartracks.netlify.app/
+
+---
+
+## Citations
+
+“Networking · React Native.” React Native, 8 October 2025, https://reactnative.dev/docs/network. Accessed 12 November 2025.
+“100 Color Combinations To Influence Your Next Design.” Figma, https://www.figma.com/resource-library/color-combinations/. Accessed 12 November 2025.
+“React JSX.” W3Schools, https://www.w3schools.com/react/react_jsx.asp. Accessed 12 November 2025.
+“Using the Fetch API - Web APIs | MDN.” MDN Web Docs, 20 August 2025, https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch. Accessed 12 November 2025.
+“Window localStorage Property.” W3Schools, https://www.w3schools.com/jsref/prop_win_localstorage.asp. Accessed 12 November 2025.
+
