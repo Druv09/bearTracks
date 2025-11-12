@@ -58,6 +58,6 @@ This project is for educational purposes as part of FBLA competitions.
 
 ---
 
-## Repository Link
+## Website Link
 
 https://beartracks.netlify.app/
