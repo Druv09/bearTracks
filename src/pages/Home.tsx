@@ -5,22 +5,22 @@ import { Search, Plus, Users, MapPin, Clock, ArrowRight } from 'lucide-react';
 // Mock data for preview
 const mockItems = [
   {
-    id: '1',
+    id: '1', // unique ID for the item
     title: 'Blue Backpack',
     description: 'Navy blue Jansport backpack with water bottle pocket',
     dateFound: '2024-10-28',
     category: 'Bags',
     location: 'Gym',
     photos: ['https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400'],
-    status: 'available'
+    status: 'available' // item is currently unclaimed
   }
 ];
 
 const Home = () => {
-  const navigate = useNavigate();
-  const availableCount = 24;
-  const pendingClaims = 7;
-  const returnedCount = 156;
+  const navigate = useNavigate(); // used to switch between pages
+  const availableCount = 24; // total available items
+  const pendingClaims = 7; // items waiting for claim approval
+  const returnedCount = 156; // items already returned
 
   return (
     <div className="bg-white">
